@@ -7,12 +7,15 @@ class Inscription extends React.Component {
 
    this.state = {
      email: "",
+     telephone: 0,
      nom: "",
      prenom: "",
      datenaiss: "",
      ville: "",
      adresse: "",
      codepostal: "",
+     etablissement: "",
+     filiereBAC: "",
    };
  }
  _ChangeVue() {
@@ -45,6 +48,10 @@ render() {
        onChangeText={(text) => this.setState({ email: text })}
      />
      <TextInput
+        placeholder="Téléphone"
+        onChangeText={(text) => this.setState({ telephone: number })}
+     />
+     <TextInput
        placeholder="Ville"
        onChangeText={(text) => this.setState({ ville: text })}
      />
@@ -56,9 +63,19 @@ render() {
        placeholder="code postal"
        onChangeText={(text) => this.setState({ codepostal: text })}
      />
+     <TextInput
+       placeholder="Etablissement"
+       onChangeText={(text) => this.setState({ etablissement: text })}
+     />
+     <TextInput
+       placeholder="filiereBAC"
+       onChangeText={(text) => this.setState({ filiereBAC: text })}
+     />
      <Button title="Inscription" />
    </View>
  );
 };
 }
 export default Inscription;
+
+
