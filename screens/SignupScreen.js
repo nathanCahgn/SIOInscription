@@ -46,6 +46,7 @@ render() {
      <TextInput
        placeholder="Date de naissance"
        onChangeText={(text) => this.setState({ datenaiss: text })}
+       keyboardType="numeric"
      />
      <TextInput
        placeholder="Email"
@@ -53,7 +54,7 @@ render() {
      />
      <TextInput
         placeholder="Téléphone"
-        onChangeText={(text) => this.setState({ telephone: number })}
+        onChangeText={(number) => this.setState({ telephone: number })}
         keyboardType="numeric"
      />
      <TextInput
@@ -67,6 +68,7 @@ render() {
      <TextInput
        placeholder="code postal"
        onChangeText={(text) => this.setState({ codepostal: text })}
+       keyboardType="numeric"
      />
      <TextInput
        placeholder="Etablissement"
