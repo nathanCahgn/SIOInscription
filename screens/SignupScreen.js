@@ -1,91 +1,150 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text, Alert } from 'react-native';
+import *  as React from 'react';
+import { View, TextInput, Button, Alert } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { useState } from 'react';
+import db from '../Firebase.js';
 
-import { addDataInVisiteur } from "../Api/VisiteurApi";
 
+//import { addDataInVisiteur } from "../Api/VisiteurApi";
+/*
 class Inscription extends React.Component {
  constructor(props) {
    super(props);
 
    this.state = {
-     email: "",
-     telephone: "",
-     nom: "",
-     prenom: "",
-     datenaiss: "",
-     ville: "",
-     adresse: "",
-     codepostal: "",
-     etablissement: "",
-     filiereBAC: "",
+     email: '',
+        telephone: '',
+        nom: '',
+        prenom: '',
+        dateNaissance: '',
+        ville: '',
+        adresse: '',
+        codepostal: '',
+        etablissement: '',
+        filiereBAC: '',
+        lieuInscription: '',
    };
- }
- _ChangeVue() {
-   this.props.navigation.navigate("Accueil");
- }
-
+ } */ 
+ /*_ChangeVue() {
+   //this.props.navigation.navigate("Accueil");
+ }*/
+/*
  submit() {
       
-      addDataInVisiteur(this.state.email, this.state.telephone, this.state.nom, this.state.prenom, this.state.datenaiss, this.state.ville, this.state.adresse, this.state.codepostal, 
-                        this.state.etablissement, this.state.filiereBAC);
-       Alert.alert("Votre compte est en cours de validation !");
-       this._ChangeVue();
+      addDataInVisiteur(this.state.emailEtu, this.state.telephoneEtu, this.state.nomEtu, this.state.prenomEtu, this.state.datenaissEtu, this.state.villeEtu, this.state.adresseEtu, this.state.codepostalEtu, 
+                        this.state.etablissementEtu, this.state.filiereBACEtu, this.state.lieuInscriptionEtu);
+       Alert.alert("Votre compte à été enregistré !");
+       //this._ChangeVue();
+
+       
 }
 
 render() {
- return (
+*/
+
+
+export default function InscriptionVisiteur({navigation}){
+  const[adresse, setAdresse] = useState('');
+  const[codepostal, setCodePostal] = useState('');
+  const[dateNaissance, setDateNaissance] = useState('');
+  const[email, setEmail] = useState('');
+  const[etablissement, setEtablissement] = useState('');
+  const[filiereBAC, setFiliereBAC] = useState('');
+  const[lieuInscription, setLieuInscription] = useState('');
+  const[nom, setNom] = useState('');
+  const[prenom, setPrenom] = useState('');
+  const[telephone, setTelephone] = useState('');
+  const[ville, setVille] = useState('');
+
+  const handleRegistration = async () => {
+    //console.log(prenom, nom, dateNaissance, email, telephone, ville, adresse, codepostal, etablissement, filiereBAC, lieuInscription);
+    try{
+      const response = await db  
+        .collection('visiteur')
+        .add({
+          adresse,
+          codepostal,
+          dateNaissance,
+          email,
+          etablissement,
+          filiereBAC,
+          lieuInscription,
+          nom,
+          prenom,
+          telephone,
+          ville,
+        });
+      console.log('Inscription effectuée', response);
+      Alert.alert('Inscription terminée !');
+    }
+
+    catch (e){
+      console.error('Erreur lors de l\'inscription', e);
+      Alert.alert('Erreur lors de l\'inscription');
+    }
+  };
+
+
+
+  return (
    <View>
      <TextInput
        placeholder="Prénom"
-       onChangeText={(text) => this.setState({ prenom: text })}
+       onChangeText={setPrenom}
      />
      <TextInput
        placeholder="Nom"
-       onChangeText={(text) => this.setState({ nom: text })}
+       onChangeText={setNom}
      />
      <TextInput
        placeholder="Date de naissance"
-       onChangeText={(text) => this.setState({ datenaiss: text })}
+       onChangeText={setDateNaissance}
        keyboardType="numeric"
      />
      <TextInput
        placeholder="Email"
-       onChangeText={(text) => this.setState({ email: text })}
+       onChangeText={setEmail}
      />
      <TextInput
         placeholder="Téléphone"
-        onChangeText={(number) => this.setState({ telephone: number })}
+        onChangeText={setTelephone}
         keyboardType="numeric"
      />
      <TextInput
        placeholder="Ville"
-       onChangeText={(text) => this.setState({ ville: text })}
+       onChangeText={setVille}
      />
      <TextInput
        placeholder="Adresse"
-       onChangeText={(text) => this.setState({ adresse: text })}
+       onChangeText={setAdresse}
      />
      <TextInput
        placeholder="code postal"
-       onChangeText={(text) => this.setState({ codepostal: text })}
+       onChangeText={setCodePostal}
        keyboardType="numeric"
      />
      <TextInput
        placeholder="Etablissement"
-       onChangeText={(text) => this.setState({ etablissement: text })}
+       onChangeText={setEtablissement}
      />
      <TextInput
        placeholder="filiereBAC"
-       onChangeText={(text) => this.setState({ filiereBAC: text })}
+       onChangeText={setFiliereBAC}
      />
-     <Button title="Inscription" 
-                 onPressAction={() => {
-                  this.submit();
-                }}/>
+
+<Picker
+    selectedValue={lieuInscription}
+    onValueChange={(itemValue) => setLieuInscription(itemValue)}
+  >
+    <Picker.Item label="Salon de l'étudiant" value="Salon de l'étudiant" />
+    <Picker.Item label="Journée Portes Ouvertes" value="Journée Portes Ouvertes" />
+  </Picker>
+
+  <Button title="Inscription"  onPress={() => {
+      //console.log(prenom, nom, dateNaissance, email, telephone, ville, adresse, codepostal, etablissement, filiereBAC, lieuInscription);
+      handleRegistration();}} />
+
    </View>
  );
 };
-}
-export default Inscription;
-
 
