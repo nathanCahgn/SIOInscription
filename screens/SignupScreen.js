@@ -2,7 +2,8 @@ import *  as React from 'react';
 import { View, TextInput, Button, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
-import db from '../Firebase.js';
+import {db} from '../Firebase.js';
+
 
 
 //import { addDataInVisiteur } from "../Api/VisiteurApi";
@@ -62,17 +63,17 @@ export default function InscriptionVisiteur({navigation}){
       const response = await db  
         .collection('visiteur')
         .add({
-          adresse,
-          codepostal,
-          dateNaissance,
-          email,
-          etablissement,
-          filiereBAC,
-          lieuInscription,
-          nom,
-          prenom,
-          telephone,
-          ville,
+          adresse: adresse,
+          codepostal: codepostal,
+          dateNaissance: dateNaissance,
+          email: email,
+          etablissement: etablissement,
+          filiereBAC: filiereBAC,
+          lieuInscription: lieuInscription,
+          nom: nom,
+          prenom: prenom,
+          telephone: telephone,
+          ville: ville,
         });
       console.log('Inscription effectuée', response);
       Alert.alert('Inscription terminée !');
